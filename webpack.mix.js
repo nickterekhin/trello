@@ -11,7 +11,10 @@ const mix = require('laravel-mix');
  |
  */
 
+const web_config = {
+
+};
+mix.webpackConfig(web_config);
 mix.js('resources/js/app.js', 'public/js')
     .postCss('resources/css/app.css', 'public/css', [
-        //
     ]);
