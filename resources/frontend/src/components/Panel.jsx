@@ -8,14 +8,17 @@ import axios from "axios";
 import {useFetch} from "../hooks/useFetch";
 import TicketService from "../services/TicketService";
 
+
 const Panel = (props) => {
+
     const [tickets, setTickets] = useState([])
     const [filter,setFilter] = useState({query:'',sort:''});
     const [modal,setModal] = useState(false);
     const [execute,isTicketsLoading,ticketError] =useFetch(async ()=>{
         const response = await TicketService.getAllByPanel(props.id);
-        console.log(response);
+
         setTickets(response.data.model);
+
     });
     const [moveExecutor,isMoveLoading,moveError] = useFetch(async (items,movedTicket)=>{
         movedTicket = movedTicket||null;

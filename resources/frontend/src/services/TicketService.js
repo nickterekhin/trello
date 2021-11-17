@@ -1,7 +1,8 @@
 import axios from 'axios';
+import {API_URL} from "@env"
 
 export default class TicketService{
-    static url= "http://localhost/api/tickets";
+    static url= API_URL||"http://localhost/api/tickets";
     static async getAll() {
         return await axios.get(this.url);
     }
