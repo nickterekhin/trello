@@ -29,10 +29,9 @@ const DragHandlers =()=>{
             },
             dragDrop(e, item) {
                 e.target.style.boxShadow = 'none';
-                if(item.panel!==currItem.panel)
+                if(item.panelId!==currItem.panelId)
                 {
-                    currItem.panel = item.panel;
-                    dropDone = true;
+                    currItem.panelId = item.panelId;
                 }
                 const currentIndex = items.indexOf(currItem);
                 if(currentIndex!==-1)
@@ -42,13 +41,14 @@ const DragHandlers =()=>{
                 const dropIndex = items.indexOf(item);
                 items.splice(dropIndex+1,0,currItem);
                 handler([...items]);
+                dropDone = true;
                 setAfter = true;
             },
-            dragDropPanel(e, panel, length) {
+            dragDropPanel(e, panel) {
                
                 if(!setAfter) {
                     currItem.sort = items.length===0?1:items[items.length-1].sort;
-                    currItem.panel = panel;
+                    currItem.panelId = panel;
                     handler([...items, currItem]);
                     dropDone = true;
                 }

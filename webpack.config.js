@@ -1,6 +1,5 @@
 const webpack = require('webpack');
 const path = require('path');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const _root = path.resolve(__dirname,'../trello');
 
 const NODE_ENV = process.env.NODE_ENV || 'development';
@@ -52,6 +51,7 @@ const webPackConfig = {
             },
             {
                 test: /\.(ts|js)x?$/,
+                include:PATHS.src,
                 exclude: /node_modules/,
                 use: {
                     loader: "babel-loader",
@@ -61,6 +61,9 @@ const webPackConfig = {
                             "@babel/preset-react",
                             "@babel/preset-typescript",
                         ],
+                        plugins: [
+                            ["@babel/transform-runtime"]
+                        ]
                     },
                 },
             },

@@ -8,9 +8,9 @@ const Item = (props) => {
             draggable={true}
             onDragOver={(e)=>props.handlers.dragOver(e)}
             onDragLeave={(e)=>props.handlers.dragLeave(e)}
-            onDragStart={(e)=>props.handlers.dragStart(e,props.data,props.panel)}
+            onDragStart={(e)=>props.handlers.dragStart(e,props.data)}
             onDragEnd={(e)=>props.handlers.dragEnd(e)}
-            onDrop={(e)=>props.handlers.dragDrop(e,props.data,props.panel)}
+            onDrop={(e)=>props.handlers.dragDrop(e,props.data)}
             className="card">
             <h5 className="card-header">
                 {props.data.title}
