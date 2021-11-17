@@ -43,12 +43,12 @@ class TicketsController extends BaseController
             'description' => 'required',
         ]);
         $sort = $this->tickets->getSortValue('todo');
-       $sort==null?0:$sort->getSort();
+        $sortValue = $sort==null?0:$sort->getSort();
         try {
             $newTicket = array(
                 'title' => $this->request->get('title'),
                 'description' => $this->request->get('description'),
-                'sort' => $sort+1,//$this->request->get('sort'), //getLast sort value by panelId
+                'sort' => $sortValue+1,//$this->request->get('sort'), //getLast sort value by panelId
                 'panelId' => 1,
                 'active' => 1,
                 'addedAt' => time()
