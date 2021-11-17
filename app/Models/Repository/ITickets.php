@@ -8,4 +8,5 @@ interface ITickets extends IRepository
 {
 
      function getAllActiveByPanel($panel);
+     function getSortValue($panel);
 }

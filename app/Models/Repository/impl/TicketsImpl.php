@@ -32,4 +32,10 @@ class TicketsImpl extends Repository implements ITickets
     {
         return Ticket::select(array('tickets.*','p.name as panelName','p.slug as panelSlug'))->join('panels as p','p.id','=','tickets.panelId')->where('tickets.Active','=',1)->where('tickets.panelId','=',$panel)->get();
     }
+
+    function getSortValue($panel)
+    {
+        return Ticket::whereRaw('sort = (select max(`sort`) from tickets WHERE panelId=1 )')->first();
+    }
+
 }

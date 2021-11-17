@@ -20,4 +20,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::group(['prefix'=>'tickets'],function(){
     Route::get('/',array('uses'=>'TicketsController@index'));
     Route::post('/create',array('uses'=>'TicketsController@create'));
+    Route::post('/move',array('uses'=>'TicketsController@move'));
+    Route::delete('/delete',array('uses'=>'TicketsController@delete'));
 });

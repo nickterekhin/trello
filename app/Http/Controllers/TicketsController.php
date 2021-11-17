@@ -38,16 +38,16 @@ class TicketsController extends BaseController
 
     public function create()
     {
-        //dd($this->request->get('id'));
         $this->request->validate([
             'title' => 'required|max:200',
             'description' => 'required',
         ]);
+
         try {
             $newTicket = array(
                 'title' => $this->request->get('title'),
                 'description' => $this->request->get('description'),
-                'sort' => $this->request->get('sort'), //getLast sort value by panelId
+                'sort' => $this->tickets->getSortValue('todo')->getSort()+1,//$this->request->get('sort'), //getLast sort value by panelId
                 'panelId' => 1,
                 'active' => 1,
                 'addedAt' => time()
@@ -62,6 +62,31 @@ class TicketsController extends BaseController
             return response()->error('Error: ', $ex->getMessage());
         }
 
+    }
+    public function move()
+    {
+        try {
+            /** @var Ticket $ticket */
+            $ticket = $this->tickets->getById($this->request->get('id'));
+            $ticket->setPanelId($this->request->get('panel'));
+            $ticket->setSort($this->request->get('sort'));
+            $this->tickets->update($ticket);
+            return response()->success('Ticket moved successfully',(new TicketResource($ticket))->jsonSerialize());
+        }catch(\Exception $ex)
+        {
+            return response()->error('Error:',$ex->getMessage());
+        }
+    }
+    public function delete()
+    {
+        try {
+            $ticket = $this->tickets->getById($this->request->get('id'));
+            $this->tickets->delete($ticket);
+            return response()->success('Ticket delete successfully',(new TicketResource($ticket))->jsonSerialize());
+        }catch (\Exception $ex)
+        {
+            return response()->error('Error:',$ex->getMessage());
+        }
     }
 
 }

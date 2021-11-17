@@ -37,19 +37,20 @@ const DragHandlers =()=>{
                 if(currentIndex!==-1)
                     items.splice(currentIndex,1);
 
-                currItem.sort = item.sort+0.01;
+                currItem.sort = parseFloat(item.sort)+0.01;
                 const dropIndex = items.indexOf(item);
                 items.splice(dropIndex+1,0,currItem);
-                handler([...items]);
+                handler([...items],currItem);
                 dropDone = true;
                 setAfter = true;
             },
             dragDropPanel(e, panel) {
                
                 if(!setAfter) {
-                    currItem.sort = items.length===0?1:items[items.length-1].sort;
+                    console.log(items[items.length-1]);
+                    currItem.sort = items.length===0?1:parseFloat(items[items.length-1].sort)+1;
                     currItem.panelId = panel;
-                    handler([...items, currItem]);
+                    handler([...items, currItem],currItem);
                     dropDone = true;
                 }
 

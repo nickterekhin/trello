@@ -11,9 +11,9 @@ const Item = (props) => {
             onDragStart={(e)=>props.handlers.dragStart(e,props.data)}
             onDragEnd={(e)=>props.handlers.dragEnd(e)}
             onDrop={(e)=>props.handlers.dragDrop(e,props.data)}
-            className="card">
+            className="card" style={{marginBottom:"20px"}}>
             <h5 className="card-header">
-                {props.data.title}
+                {props.data.id} {props.data.title}
             </h5>
             <div className="card-body">
                 <p> {props.data.description}</p>

@@ -16,6 +16,17 @@ const Panel = (props) => {
         const response = await TicketService.getAllByPanel(props.id);
         setTickets(response.data.model);
     });
+    const [moveExecutor,isMoveLoading,moveError] = useFetch(async (items,movedTicket)=>{
+        movedTicket = movedTicket||null;
+        if(movedTicket)
+            await TicketService.moveTicket(movedTicket.id,movedTicket.panelId,movedTicket.sort);
+        setTickets(items);
+    });
+
+    const [removeExecutor,isRemoveLoading,removeError] = useFetch(async(id)=>{
+        await TicketService.removeTicket(id);
+        setTickets(tickets.filter(p=>p.id!==id))
+    });
     useEffect(()=>{
         execute();
     },[]);
@@ -30,6 +41,7 @@ const Panel = (props) => {
 
     const createTicket =(ticket)=>{
         TicketService.create(ticket).then((r)=>{
+            console.log(r);
             ticket.id=r.data.model.id;
             ticket.sort = r.data.model.sort;
             setTickets([...tickets,ticket])
@@ -38,22 +50,26 @@ const Panel = (props) => {
 
     }
     const removeTicket = (ticket)=>{
-        setTickets(tickets.filter(p=>p.id!==ticket.id))
+           removeExecutor(ticket.id);
     }
-    const handlers = props.handlers(tickets,setTickets);
+
+    const moveTicket = (items,movedTicket)=>{
+        moveExecutor(items,movedTicket);
+    }
+    const handlers = props.handlers(tickets,moveTicket);
 
     return (
         <div className="col-4 p-3">
-            <h3>{props.title} {props.id===1?<Button onClick={()=>setModal(true)}>Add</Button>:''}</h3>
+            <h3>{props.title} {props.id==='1'?<Button onClick={()=>setModal(true)}>Add</Button>:''}</h3>
             <TicketsFilters filter={filter} setFilter={setFilter}/>
-            {props.id===1?
+            {props.id==='1'?
                 <ModalDlg visible={modal} setVisible={setModal} title={"Add Task to TODO List"}>
                 <div className={"add-todo row"}>
                <AddTicket createTicket={createTicket}/>
             </div>
                 </ModalDlg>
                 :''}
-            <div id={props.id} className="col" style={{minHeight:"300px"}} onDrop={(e)=>handlers.dragDropPanel(e,props.id)} onDragOver={(e)=>e.preventDefault()}>
+            <div id={props.id} className="col" style={{minHeight:"100%"}} onDrop={(e)=>handlers.dragDropPanel(e,props.id)} onDragOver={(e)=>e.preventDefault()}>
                 {searchTickets.map((i,idx)=>
                     <Item key={i.id} data={i}  index={idx} handlers={handlers} remove={removeTicket}/>
                 )}

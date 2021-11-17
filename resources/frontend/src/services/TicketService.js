@@ -1,19 +1,30 @@
 import axios from 'axios';
 
 export default class TicketService{
-    static url= "http://localhost/api/";
+    static url= "http://localhost/api/tickets";
     static async getAll() {
-        return await axios.get(this.url+'tickets');
+        return await axios.get(this.url);
     }
     static async getAllByPanel(panel)
     {
-        return await axios.get(this.url+'tickets',{params:{
+        return await axios.get(this.url,{params:{
             panel:panel
         }})
     }
     static async create(ticket)
     {
-      return await axios.post('http://localhost/api/tickets/create',ticket);
+      return await axios.post(this.url+'/create',ticket);
+    }
+    static async moveTicket(id,panel,sort)
+    {
+        return await axios.post(this.url+'/move',{
+            id:id,
+            panel:panel,
+            sort:sort
+            })
+    }
+    static async removeTicket(id){
+        return await axios.delete(this.url+'/delete',{params:{id:id}})
     }
 
 }

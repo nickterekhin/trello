@@ -4,8 +4,10 @@ import Board from "../components/Board";
 
 const App = () => {
     return (
-        <div className="row col">
-            <Board/>
+        <div className="row">
+            <div className={"col"}>
+                <Board/>
+            </div>
         </div>
     );
 };
