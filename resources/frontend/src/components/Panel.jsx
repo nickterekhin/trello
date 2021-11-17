@@ -14,6 +14,7 @@ const Panel = (props) => {
     const [modal,setModal] = useState(false);
     const [execute,isTicketsLoading,ticketError] =useFetch(async ()=>{
         const response = await TicketService.getAllByPanel(props.id);
+        console.log(response);
         setTickets(response.data.model);
     });
     const [moveExecutor,isMoveLoading,moveError] = useFetch(async (items,movedTicket)=>{
