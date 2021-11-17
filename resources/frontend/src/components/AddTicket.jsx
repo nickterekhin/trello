@@ -19,20 +19,22 @@ const AddTicket = (props) => {
     }
     return (
         <form>
+            <div className={"form-group mb-2"}>
             <Input
                 type={"text"}
                 placeholder={"Title"} onChange={e=>setTicket({...ticket,title:e.target.value})}
                 value={ticket.title}
             />
 
-
+            </div>
+            <div className={"form-group mb-2"}>
             <Input
                 type={"text"}
                 placeholder={"Description"}
                 value={ticket.description}
                 onChange={e=>setTicket({...ticket,description:e.target.value})}
             />
-
+            </div>
             <Button onClick={addNewTask} btnType={"success"} >Add Task</Button>
         </form>
     );

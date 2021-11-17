@@ -3,7 +3,7 @@
     "scripts": {
         "dev": "npm run development",
         "development": "webpack --env NODE_ENV=development --progress --config=webpack.config.js",
-        "watch": "webpack --env NODE_ENV=dev --watch --progress --config=webpack.config.js",
+        "watch": "webpack --env NODE_ENV=development --watch --progress --config=webpack.config.js",
         "prod": "webpack --env NODE_ENV=production --progress --config=webpack.config.js"
     },
     "devDependencies": {
