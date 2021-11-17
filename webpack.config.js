@@ -1,6 +1,9 @@
 const webpack = require('webpack');
 const path = require('path');
-const _root = path.resolve(__dirname,'../trello');
+require('dotenv').config();
+
+
+const _root = path.resolve(__dirname,process.env.APP_FOLDER||'../trello');
 
 
        
